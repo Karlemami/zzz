@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxfhypymvim3s"]
+
+[ext_resource type="Script" path="res://src/scenery/Chains1.cs" id="1_07x6a"]
+
+[node name="Chains1" type="Area2D"]
+script = ExtResource("1_07x6a")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.99867, 0.917763)
+polygon = PackedVector2Array(-20, -22, -21.028, 78.4516, -7.00932, 78.4516, -7, 40, 9, 40, 9, 25, 25, 25, 25, -23, -19, -23, -22, -23)

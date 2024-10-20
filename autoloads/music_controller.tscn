@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://8k5y76pf36l3"]
+
+[ext_resource type="AudioStream" uid="uid://rly271iulkh5" path="res://assets/sounds/Zzz.wav" id="1_yc5y3"]
+[ext_resource type="Script" path="res://autoloads/MusicController.cs" id="2_urwh0"]
+
+[node name="MusicController" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_yc5y3")
+script = ExtResource("2_urwh0")
