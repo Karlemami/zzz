@@ -1,7 +1,39 @@
-[gd_scene load_steps=26 format=3 uid="uid://jdqdvtwgxqfe"]
+[gd_scene load_steps=34 format=3 uid="uid://jdqdvtwgxqfe"]
 
 [ext_resource type="Script" path="res://src/characters/Player.cs" id="1_gyysh"]
 [ext_resource type="Texture2D" uid="uid://fyl7kw0tlwwy" path="res://assets/knight.png" id="1_w7x32"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nan60"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxufs"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2xhr"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d78ga"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohohe"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2yi3"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knk1u"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kq7gv"]
+atlas = ExtResource("1_w7x32")
+region = Rect2(96, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nrpn6"]
 atlas = ExtResource("1_w7x32")
@@ -91,6 +123,40 @@ region = Rect2(224, 96, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_nan60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxufs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2xhr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d78ga")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohohe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2yi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knk1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kq7gv")
+}],
+"loop": false,
+"name": &"TakeDamage",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nrpn6")
 }, {
 "duration": 1.0,
@@ -177,10 +243,13 @@ script = ExtResource("1_gyysh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7spd6")
-animation = &"jump"
+animation = &"Die"
 autoplay = "idle"
-frame_progress = 0.721885
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_0rxft")
+
+[node name="InvicibilityFrames" type="Timer" parent="."]

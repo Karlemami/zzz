@@ -14,7 +14,7 @@ public partial class Spikes : Area2D
 		{
 			ulong id = body.GetInstanceId();
 			Player player = (Player)InstanceFromId(id);
-			player.Die();
+			player.TakeDamage(1);
 			
 		}
 	}

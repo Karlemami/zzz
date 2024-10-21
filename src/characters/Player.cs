@@ -3,59 +3,101 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 120.0f;
-	public const float JumpVelocity = -300.0f;
+	internal const float Speed = 120.0f;
+	internal const float JumpVelocity = -300.0f;
+	internal int Hp = 3;
 	private AnimatedSprite2D sprite;
+	private Timer InvincibilityFrames;
 	internal bool IsClimbing = false;
 	internal bool IsOnClimbableSurface = false;
+	internal bool IsInvincible = false;
+	internal bool IsTakingDamage = false;
+	internal bool IsAlive = true;
 
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		InvincibilityFrames = GetNode<Timer>("InvicibilityFrames");
+		InvincibilityFrames.OneShot = true;
+		InvincibilityFrames.WaitTime = 0.8;	
+		InvincibilityFrames.Timeout += OnInvincibilityFramesTimerTimeoutSignal;
+
 	}
 
-	public override void _PhysicsProcess(double delta)
+    public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		
-		if (!IsOnFloor())
+		if(IsAlive)
 		{
-
-			if(IsClimbing == false)
+			Vector2 velocity = Velocity;
+			Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+			
+			if (!IsOnFloor())
 			{
-				velocity += GetGravity() * (float)delta;
-				if (IsOnClimbableSurface == true)
+
+				if(IsClimbing == false)
 				{
-					if(Input.IsActionJustPressed("move_up"))
+					velocity += GetGravity() * (float)delta;
+					if (IsOnClimbableSurface == true)
 					{
-						velocity.Y = 0;
-						IsClimbing = true;
+						if(Input.IsActionJustPressed("move_up"))
+						{
+							velocity.Y = 0;
+							IsClimbing = true;
+						}
 					}
 				}
+				else
+				{
+					velocity = Climb(velocity);
+				}	
 			}
-			else
-			{
-				velocity = Climb(velocity);
-			}	
+			
+
+			Animate(direction);
+			velocity = Jump(velocity);
+			velocity = MoveHorizontal(velocity, direction);
+
+			Velocity = velocity;
+			
+			MoveAndSlide();
 		}
-		
-
-		Animate(direction);
-		velocity = Jump(velocity);
-		velocity = MoveHorizontal(velocity, direction);
-
-		GD.Print("velo: ",velocity);
-		Velocity = velocity;
-		MoveAndSlide();
 	}
 
-
-	internal void Die()
+	private void OnInvincibilityFramesTimerTimeoutSignal()
 	{
-		// Use call_deferred to reload the scene after the physics processing is complete
+		IsInvincible = false;
+
+		GD.Print("timer ends");
+	}
+
+	internal void TakeDamage(int amount)
+	{
+		if(!IsInvincible)
+		{
+			if(Hp - amount <= 0)
+			{
+				Hp = 0;
+				Die();
+			}
+
+			Hp -= amount;
+			GD.Print(Hp);
+			GD.Print("starting timer");
+			IsInvincible = true;
+			InvincibilityFrames.Start();
+		}
+	}
+
+	internal void OnDeathAnimationTimerTimeout()
+	{
 		LevelManager levelManager = (LevelManager)GetNode("%LevelManager");
 		levelManager.CallDeferred(nameof(levelManager.ReloadScene));
+	}
+	internal void Die()
+	{
+		IsAlive = false;
+		sprite.Play("Die");
+		sprite.AnimationFinished += OnDeathAnimationTimerTimeout;
 	}
 
 	private void Animate(Vector2 direction)
@@ -67,6 +109,12 @@ public partial class Player : CharacterBody2D
 		else if(direction.X < 0)
 		{
 			sprite.FlipH = true;
+		}
+
+		if(IsInvincible)
+		{
+			sprite.Play("TakeDamage");
+			return;
 		}
 
 		if (IsOnFloor())
@@ -100,7 +148,6 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.Y = 0;
 		}
-		GD.Print("climbing vector : ", velocity);
 		return velocity;
 	}
 
