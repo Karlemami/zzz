@@ -8,6 +8,7 @@ public partial class Player : CharacterBody2D
 	internal int Hp = 3;
 	private AnimatedSprite2D sprite;
 	private Timer InvincibilityFrames;
+	private HealthBar HealthBar;
 	internal bool IsClimbing = false;
 	internal bool IsOnClimbableSurface = false;
 	internal bool IsInvincible = false;
@@ -21,6 +22,8 @@ public partial class Player : CharacterBody2D
 		InvincibilityFrames.OneShot = true;
 		InvincibilityFrames.WaitTime = 0.8;	
 		InvincibilityFrames.Timeout += OnInvincibilityFramesTimerTimeoutSignal;
+		HealthBar = GetNode<HealthBar>("HealthBar");
+		GD.Print(HealthBar);
 
 	}
 
@@ -72,19 +75,22 @@ public partial class Player : CharacterBody2D
 
 	internal void TakeDamage(int amount)
 	{
+		GD.Print("taking damage");
 		if(!IsInvincible)
 		{
 			if(Hp - amount <= 0)
 			{
 				Hp = 0;
+				HealthBar.UpdateHealthbar(Hp);
 				Die();
 			}
 
 			Hp -= amount;
 			GD.Print(Hp);
-			GD.Print("starting timer");
+			HealthBar.UpdateHealthbar(Hp);
 			IsInvincible = true;
 			InvincibilityFrames.Start();
+
 		}
 	}
 
@@ -110,7 +116,6 @@ public partial class Player : CharacterBody2D
 		{
 			sprite.FlipH = true;
 		}
-
 		if(IsInvincible)
 		{
 			sprite.Play("TakeDamage");

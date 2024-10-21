@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqvgf4ouv2vld"]
+
+[ext_resource type="Script" path="res://src/HealthBar.cs" id="1_mxwix"]
+[ext_resource type="Texture2D" uid="uid://dtroknoic36rp" path="res://assets/heart_full.png" id="2_dh74j"]
+
+[node name="HealthBar" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mxwix")
+
+[node name="Heart1" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_dh74j")
+
+[node name="Heart2" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_dh74j")
+
+[node name="Heart3" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_dh74j")
