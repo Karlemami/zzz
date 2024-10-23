@@ -8,11 +8,9 @@ public partial class HealthBar : HBoxContainer
 
 	internal void UpdateHealthbar(int health)
 	{
-		GD.Print("updating healthbar");
 		for(int i = 0; i < GetChildCount(); i++)
 		{
 			TextureRect HeartBox = (TextureRect)GetChild(i);
-			GD.Print(HeartBox.Name);
 			if(health>i)
 			{
 				HeartBox.Texture = HeartFull;

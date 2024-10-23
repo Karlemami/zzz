@@ -23,8 +23,6 @@ public partial class Player : CharacterBody2D
 		InvincibilityFrames.WaitTime = 0.8;	
 		InvincibilityFrames.Timeout += OnInvincibilityFramesTimerTimeoutSignal;
 		HealthBar = GetNode<HealthBar>("HealthBar");
-		GD.Print(HealthBar);
-
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -69,24 +67,18 @@ public partial class Player : CharacterBody2D
 	private void OnInvincibilityFramesTimerTimeoutSignal()
 	{
 		IsInvincible = false;
-
-		GD.Print("timer ends");
 	}
 
 	internal void TakeDamage(int amount)
 	{
-		GD.Print("taking damage");
 		if(!IsInvincible)
 		{
 			if(Hp - amount <= 0)
 			{
-				Hp = 0;
-				HealthBar.UpdateHealthbar(Hp);
 				Die();
 			}
 
 			Hp -= amount;
-			GD.Print(Hp);
 			HealthBar.UpdateHealthbar(Hp);
 			IsInvincible = true;
 			InvincibilityFrames.Start();
@@ -101,6 +93,8 @@ public partial class Player : CharacterBody2D
 	}
 	internal void Die()
 	{
+		Hp = 0;
+		HealthBar.UpdateHealthbar(Hp);
 		IsAlive = false;
 		sprite.Play("Die");
 		sprite.AnimationFinished += OnDeathAnimationTimerTimeout;
