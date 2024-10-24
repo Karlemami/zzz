@@ -6,6 +6,7 @@
 [node name="HealthBar" type="HBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.234, 0.234)
 script = ExtResource("1_mxwix")
 
 [node name="Heart1" type="TextureRect" parent="."]

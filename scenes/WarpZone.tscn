@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqr1gwravr1uy"]
+
+[ext_resource type="Script" path="res://src/WarpZone.cs" id="1_gq8lk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fxq6"]
+size = Vector2(4, 25)
+
+[node name="WarpZone" type="Area2D"]
+position = Vector2(313, -23)
+script = ExtResource("1_gq8lk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_4fxq6")

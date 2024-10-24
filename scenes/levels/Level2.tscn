@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=4 uid="uid://d0adbgvfget3d"]
+
+[ext_resource type="TileSet" uid="uid://cjh2a8jrpywoy" path="res://scenes/levels/level.tres" id="1_3eefb"]
+[ext_resource type="PackedScene" uid="uid://xrhjceiq2lju" path="res://scenes/Camera.tscn" id="2_hiq4u"]
+[ext_resource type="PackedScene" uid="uid://cqvgf4ouv2vld" path="res://scenes/HealthBar.tscn" id="3_mvi81"]
+[ext_resource type="PackedScene" uid="uid://cqr1gwravr1uy" path="res://scenes/WarpZone.tscn" id="3_wf8uc"]
+[ext_resource type="PackedScene" uid="uid://jdqdvtwgxqfe" path="res://scenes/characters/player.tscn" id="5_xxopt"]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Collidable" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD//wAAAAAFAAYAAAD+/wAAAAAFAAYAAAD9/wAAAAAFAAYAAAD8/wAAAAAFAAYAAAD7/wAAAAAFAAYAAAAAAAAAAAAFAAYAAAABAAAAAAAFAAYAAAACAAAAAAAFAAYAAAADAAAAAAAFAAYAAAD6/wAAAAAEAAYAAAAEAAAAAAAGAAYAAAAEAP//AAAGAAUAAAAEAP7/AAAGAAUAAAAEAP3/AAAGAAUAAAAEAPz/AAAGAAUAAAAEAPv/AAAGAAUAAAAEAPr/AAAGAAUAAAAEAPn/AAAGAAUAAAD6//3/AAAGAAUAAAD6//z/AAAGAAUAAAD6//v/AAAGAAUAAAD6//r/AAAGAAUAAAD6//n/AAAGAAUAAAD6//j/AAAGAAUAAAD6//f/AAAGAAUAAAAEAPj/AAAGAAUAAAAEAPf/AAAGAAUAAAA=")
+tile_set = ExtResource("1_3eefb")
+
+[node name="Camera" parent="." instance=ExtResource("2_hiq4u")]
+position = Vector2(-6, -72)
+
+[node name="HealthBar" parent="Camera" instance=ExtResource("3_mvi81")]
+offset_left = -188.0
+offset_top = -105.0
+offset_right = 102.0
+offset_bottom = -19.0
+
+[node name="WarpZone" parent="." instance=ExtResource("3_wf8uc")]
+position = Vector2(-96, -17)
+ScenePath = "res://scenes/levels/level.tscn"
+
+[node name="Player" parent="." instance=ExtResource("5_xxopt")]
+position = Vector2(-87, -12)
